@@ -496,35 +496,29 @@
   </div>
 
   <script>
-    // --- JavaScript Digabung ---
-
-    // Function to show custom alert message
+    // Fungsi untuk menampilkan pesan peringatan kustom
     function showCustomAlert(message) {
       document.getElementById('alertMessage').innerText = message;
       document.getElementById('customAlert').style.display = 'block';
     }
 
-    // Fungsi untuk handle form submission
-    document.getElementById('orderForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Mencegah form submit secara default
-
-      // Ambil data dari form
-      const layanan = document.getElementById('layanan').value;
-      const link = document.getElementById('link').value;
-      const jumlah = document.getElementById('jumlah').value;
-
-      // Validasi pemilihan layanan
-      if (!layanan) {
-        showCustomAlert('Mohon pilih layanan terlebih dahulu!');
-        return;
+    // Fungsi untuk menyalin teks ke clipboard
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showCustomAlert('Nomor berhasil disalin!');
+      } catch (err) {
+        showCustomAlert('Gagal menyalin nomor.');
       }
+      document.body.removeChild(textarea);
+    }
 
-      // Nomor WhatsApp Tujuan
-      const waNumber = '6283894413409';
-
-      // Format pesan untuk WhatsApp
-      const message = `
-Halo Lighxam, saya mau order:
-
-✨ *Layanan:* ${layayan}
-🔗 *Link/URL Targe
+    // Event listener untuk tombol salin pembayaran
+    document.querySelectorAll('.payment-button').forEach(button => {
+      button.querySelector('.copy-btn').addEventListener('click', function(event) {
+        event.stopPropagation(); // Mencegah event klik pada tombol parent
+        const accountNumber = button.data
