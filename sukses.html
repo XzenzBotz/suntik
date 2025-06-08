@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Terkirim!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00a884;
+            --background-color: #111b21;
+            --card-background: #202c33;
+            --text-color: #e9edef;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .success-container {
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        .success-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .back-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: #25D366;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✅</div>
+        <h1>Format Order Terkirim!</h1>
+        <p>
+            Anda telah dialihkan ke WhatsApp. Silakan kirim pesan yang sudah disiapkan, lalu lanjutkan transaksi dan <strong>kirimkan bukti transfer Anda</strong> di chat tersebut untuk diproses.
+        </p>
+        <a href="index.html" class="back-link">Kembali ke Halaman Utama</a>
+    </div>
+</body>
+</html>
