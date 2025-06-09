@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suntik Sosmed By Lighxam 🔥</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* --- CSS Digabung --- */
+    :root {
+      --primary-color: #00a884;
+      --secondary-color: #25D366;
+      --background-color: #111b21;
+      /* Adjusted card background for more transparency */
+      --card-background: rgba(32, 44, 51, 0.75); /* More transparent */
+      --text-color: #e9edef;
+      --input-bg: #2a3942;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Video Background Styling */
+    .video-background {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -2; /* Place behind other content and overlay */
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    /* Overlay to make text readable over the video, less opaque */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3); /* Even less opaque overlay */
+      z-index: -1;
+    }
+
+    .container,
+    .payment-info {
+      background-color: var(--card-background); /* Using transparent card background */
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      z-index: 1; /* Ensure content is above video/overlay */
+      backdrop-filter: blur(5px); /* Optional: add a blur effect for frosted glass */
+      -webkit-backdrop-filter: blur(5px); /* Safari support */
+    }
+
+    .container {
+        margin-bottom: 20px; /* Add margin between form and payment info */
+    }
+
+    .header {
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      font-family: 'Anton', sans-serif;
+      color: var(--primary-color);
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Text shadow for readability */
+      /* Sparkling animation for the title */
+      animation: sparkle 2s infinite alternate;
+    }
+
+    /* Keyframes for the sparkling animation */
+    @keyframes sparkle {
+      0% {
+        text-shadow: 0 0 5px var(--primary-color);
+      }
+      50% {
+        text-shadow: 0 0 15px var(--secondary-color), 0 0 25px var(--primary-color);
+      }
+      100% {
+        text-shadow: 0 0 5px var(--primary-color);
+      }
+    }
+
+    .header p {
+      font-size: 1.1em;
+      color: var(--text-color);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Text shadow for readability */
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .form-group select,
+    .form-group input[type="text"],
+    .form-group input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      font-size: 1em;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .form-group select {
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23e9edef" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 24px;
+      padding-right: 40px;
+    }
+
+    .submit-btn {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background-color: #1DA851;
+      transform: translateY(-2px);
+    }
+
+    /* Custom Alert/Message Box */
+    .custom-alert {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffc107;
+      color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+      display: none; /* Hidden by default */
+      text-align: center;
+    }
+    .custom-alert button {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .payment-info h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-family: 'Anton', sans-serif;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* Styling for the selected payment method display */
+    .selected-payment-details {
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      padding: 12px 15px;
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: 600;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      min-height: 50px; /* Ensure consistent height */
+    }
+
+    .selected-payment-details .account-info {
+        flex-grow: 1;
+    }
+
+    .selected-payment-details .account-info p {
+        margin: 0;
+        line-height: 1.3;
+    }
+    .selected-payment-details .account-name {
+        color: var(--primary-color);
+        font-size: 0.9em;
+    }
+
+    .copy-btn {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8em;
+      margin-left: 15px; /* Add some space from the text */
+      transition: background-color 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .copy-btn:hover {
+      background-color: #1DA851;
+    }
+
+    .qr-code {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .qr-code img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid var(--primary-color);
+      display: block; /* Ensure image takes up space and centers correctly */
+      margin: 0 auto; /* Center the image */
+    }
+
+    .warning-messages {
+      margin-top: 20px;
+      color: #ffc107;
+      font-weight: 600;
+      font-size: 0.9em;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .submit-btn {
+        font-size: 1.1em;
+        padding: 12px 20px;
+      }
+
+      .container, .payment-info {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Video Background -->
+  <video autoplay loop muted playsinline class="video-background">
+    <source src="https://files.catbox.moe/cpjzqz.mp4" type="video/mp4">
+    Browser Anda tidak mendukung tag video.
+  </video>
+
+  <div class="container">
+    <div class="header">
+      <h1>Suntik Sosmed By Lighxam 🔥</h1>
+      <p>Layanan suntik sosmed termurah & terpercaya di Indonesia</p>
+    </div>
+
+    <form id="orderForm">
+      <div class="form-group">
+        <label for="layanan">Pilih Layanan:</label>
+        <select id="layanan" name="layanan" class="rounded-lg">
+          <option value="">-- Pilih Layanan --</option>
+          <optgroup label="FOLLOWERS TIKTOK">
+            <option value="100 FOLLOWERS TIKTOK - Rp5.000">100 FOLLOWERS = Rp5.000</option>
+            <option value="200 FOLLOWERS TIKTOK - Rp10.000">200 FOLLOWERS = Rp10.000</option>
+            <option value="300 FOLLOWERS TIKTOK - Rp15.000">300 FOLLOWERS = Rp15.000</option>
+            <option value="400 FOLLOWERS TIKTOK - Rp18.000">400 FOLLOWERS = Rp18.000</option>
+            <option value="500 FOLLOWERS TIKTOK - Rp25.000">500 FOLLOWERS = Rp25.000</option>
+            <option value="600 FOLLOWERS TIKTOK - Rp28.000">600 FOLLOWERS = Rp28.000</option>
+            <option value="700 FOLLOWERS TIKTOK - Rp35.000">700 FOLLOWERS = Rp35.000</option>
+            <option value="800 FOLLOWERS TIKTOK - Rp37.000">800 FOLLOWERS = Rp37.000</option>
+            <option value="900 FOLLOWERS TIKTOK - Rp40.000">900 FOLLOWERS = Rp40.000</option>
+            <option value="1000 FOLLOWERS TIKTOK - Rp50.000">1000 FOLLOWERS = Rp50.000</option>
+          </optgroup>
+          <optgroup label="LIKE TIKTOK">
+            <option value="100 LIKE TIKTOK - Rp1.000">100 LIKE = Rp1.000</option>
+            <option value="200 LIKE TIKTOK - Rp2.000">200 LIKE = Rp2.000</option>
+            <option value="400 LIKE TIKTOK - Rp3.000">400 LIKE = Rp3.000</option>
+            <option value="500 LIKE TIKTOK - Rp4.000">500 LIKE = Rp4.000</option>
+            <option value="600 LIKE TIKTOK - Rp5.000">600 LIKE = Rp5.000</option>
+            <option value="700 LIKE TIKTOK - Rp7.000">700 LIKE = Rp7.000</option>
+            <option value="800 LIKE TIKTOK - Rp8.000">800 LIKE = Rp8.000</option>
+            <option value="900 LIKE TIKTOK - Rp9.000">900 LIKE = Rp9.000</option>
+            <option value="1000 LIKE TIKTOK - Rp10.000">1000 LIKE = Rp10.000</option>
+          </optgroup>
+          <optgroup label="VIEWS TIKTOK">
+            <option value="10.000 VIEWS TIKTOK - Rp2.000">10.000 VIEWS = Rp2.000</option>
+            <option value="20.000 VIEWS TIKTOK - Rp4.000">20.000 VIEWS = Rp4.000</option>
+            <option value="30.000 VIEWS TIKTOK - Rp6.000">30.000 VIEWS = Rp6.000</option>
+            <option value="50.000 VIEWS TIKTOK - Rp7.000">50.000 VIEWS = Rp7.000</option>
+            <option value="80.000 VIEWS TIKTOK - Rp8.000">80.000 VIEWS = Rp8.000</option>
+            <option value="100.000 VIEWS TIKTOK - Rp10.000">100.000 VIEWS = Rp10.000</option>
+            <option value="300.000 VIEWS TIKTOK - Rp13.000">300.000 VIEWS = Rp13.000</option>
+            <option value="500.000 VIEWS TIKTOK - Rp15.000">500.000 VIEWS = Rp15.000</option>
+            <option value="1000.000 VIEWS TIKTOK - Rp20.000">1000.000 VIEWS = Rp20.000</option>
+          </optgroup>
+          <optgroup label="SHARE TIKTOK">
+            <option value="1000 SHARE TIKTOK - Rp6.000">1000 SHARE = Rp6.000</option>
+            <option value="2000 SHARE TIKTOK - Rp8.000">2000 SHARE = Rp8.000</option>
+            <option value="5000 SHARE TIKTOK - Rp10.000">5000 SHARE = Rp10.000</option>
+            <option value="6000 SHARE TIKTOK - Rp11.000">6000 SHARE = Rp11.000</option>
+            <option value="7000 SHARE TIKTOK - Rp12.000">7000 SHARE = Rp12.000</option>
+            <option value="8000 SHARE TIKTOK - Rp15.000">8000 SHARE = Rp15.000</option>
+          </optgroup>
+          <optgroup label="SAVE/FAVORIT TIKTOK">
+            <option value="100 SAVE/FAVORIT TIKTOK - Rp1.000">100 SAVE = Rp1.000</option>
+            <option value="200 SAVE/FAVORIT TIKTOK - Rp2.000">200 SAVE = Rp2.000</option>
+            <option value="400 SAVE/FAVORIT TIKTOK - Rp3.000">400 SAVE = Rp3.000</option>
+            <option value="500 SAVE/FAVORIT TIKTOK - Rp5.000">500 SAVE = Rp5.000</option>
+            <option value="600 SAVE/FAVORIT TIKTOK - Rp6.000">600 SAVE = Rp6.000</option>
+            <option value="800 SAVE/FAVORIT TIKTOK - Rp7.000">800 SAVE = Rp7.000</option>
+            <option value="1000 SAVE/FAVORIT TIKTOK - Rp9.000">1000 SAVE = Rp9.000</option>
+            <option value="1500 SAVE/FAVORIT TIKTOK - Rp10.000">1500 SAVE = Rp10.000</option>
+          </optgroup>
+          <optgroup label="FOLLOWERS INSTAGRAM">
+            <option value="100 FOLLOWERS INSTAGRAM - Rp7.000">100 FOLLOWERS = Rp7.000</option>
+            <option value="200 FOLLOWERS INSTAGRAM - Rp13.000">200 FOLLOWERS = Rp13.000</option>
+            <option value="300 FOLLOWERS INSTAGRAM - Rp18.000">300 FOLLOWERS = Rp18.000</option>
+            <option value="400 FOLLOWERS INSTAGRAM - Rp25.000">400 FOLLOWERS = Rp25.000</option>
+            <option value="500 FOLLOWERS INSTAGRAM - Rp30.000">500 FOLLOWERS = Rp30.000</option>
+          </optgroup>
+          <optgroup label="LIKE INSTAGRAM">
+            <option value="200 LIKE INSTAGRAM - Rp1.000">200 LIKE = Rp1.000</option>
+            <option value="300 LIKE INSTAGRAM - Rp3.000">300 LIKE = Rp3.000</option>
+            <option value="400 LIKE INSTAGRAM - Rp4.000">400 LIKE = Rp4.000</option>
+            <option value="500 LIKE INSTAGRAM - Rp5.000">500 LIKE = Rp5.000</option>
+            <option value="700 LIKE INSTAGRAM - Rp7.000">700 LIKE = Rp7.000</option>
+            <option value="800 LIKE INSTAGRAM - Rp9.000">800 LIKE = Rp9.000</option>
+            <option value="900 LIKE INSTAGRAM - Rp10.000">900 LIKE = Rp10.000</option>
+            <option value="1000 LIKE INSTAGRAM - Rp13.000">1000 LIKE = Rp13.000</option>
+          </optgroup>
+          <optgroup label="VIEWS INSTAGRAM">
+            <option value="1000 VIEWS INSTAGRAM - Rp3.000">1000 VIEWS = Rp3.000</option>
+            <option value="3000 VIEWS INSTAGRAM - Rp4.000">3000 VIEWS = Rp4.000</option>
+            <option value="5000 VIEWS INSTAGRAM - Rp5.000">5000 VIEWS = Rp5.000</option>
+            <option value="7000 VIEWS INSTAGRAM - Rp7.000">7000 VIEWS = Rp7.000</option>
+            <option value="9000 VIEWS INSTAGRAM - Rp8.000">9000 VIEWS = Rp8.000</option>
+            <option value="10.000 VIEWS INSTAGRAM - Rp10.000">10.000 VIEWS = Rp10.000</option>
+          </optgroup>
+          <optgroup label="CH WA">
+            <option value="10 PENGIKUT CH WA - 3K">10 PENGIKUT = 3K</option>
+            <option value="20 PENGIKUT CH WA - 5K">20 PENGIKUT = 5K</option>
+            <option value="40 PENGIKUT CH WA - 8K">40 PENGIKUT = 8K</option>
+            <option value="50 PENGIKUT CH WA - 10K">50 PENGIKUT = 10K</option>
+            <option value="70 PENGIKUT CH WA - 13K">70 PENGIKUT = 13K</option>
+            <option value="80 PENGIKUT CH WA - 15K">80 PENGIKUT = 15K</option>
+            <option value="90 PENGIKUT CH WA - 20K">90 PENGIKUT = 20K</option>
+            <option value="100 PENGIKUT CH WA - 30K">100 PENGIKUT = 30K</option>
+          </optgroup>
+          <optgroup label="EMOJI WA">
+            <option value="30 EMOJI WA - 3K">30 EMOJI = 3K</option>
+            <option value="40 EMOJI WA - 5K">40 EMOJI = 5K</option>
+            <option value="50 EMOJI WA - 6K">50 EMOJI = 6K</option>
+            <option value="70 EMOJI WA - 7K">70 EMOJI = 7K</option>
+            <option value="80 EMOJI WA - 8K">80 EMOJI = 8K</option>
+            <option value="90 EMOJI WA - 9K">90 EMOJI = 9K</option>
+            <option value="100 EMOJI WA - 10K">100 EMOJI = 10K</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="link">Link/URL Target:</label>
+        <input type="text" id="link" name="link" placeholder="Masukkan Link/URL Target" required class="rounded-lg">
+      </div>
+
+      <div class="form-group">
+        <label for="jumlah">Jumlah:</label>
+        <input type="number" id="jumlah" name="jumlah" placeholder="Masukkan Jumlah" required min="1" class="rounded-lg">
+      </div>
+
+      <button type="submit" class="submit-btn">Order Sekarang via WhatsApp</button>
+    </form>
+  </div>
+
+  <div class="payment-info">
+    <h2>Metode Pembayaran</h2>
+    <div class="form-group">
+      <label for="paymentMethod">Pilih Metode Pembayaran:</label>
+      <select id="paymentMethod" name="paymentMethod" class="rounded-lg">
+        <option value="">-- Pilih Metode Pembayaran --</option>
+        <option value="DANA:083894413409:RET*** IND****">DANA: 0838-9441-3409 (A/N: RET*** IND****)</option>
+        <option value="GOPAY:083894413409:LIG*** STR***">GOPAY: 0838-9441-3409 (A/N: LIG*** STR***)</option>
+        <option value="OVO:085191248944:AKM*** N**** SEB***">OVO: 0851-9124-8944 (A/N: AKM*** N**** SEB***)</option>
+      </select>
+    </div>
+
+    <!-- Display selected payment method details and copy button -->
+    <div id="selectedPaymentDetails" class="selected-payment-details" style="display: none;">
+      <div class="account-info">
+        <p id="displayedAccountDetails"></p>
+        <p class="account-name" id="displayedAccountName"></p>
+      </div>
+      <span class="copy-btn" id="copyPaymentBtn">Salin</span>
+    </div>
+
+    <div class="qr-code">
+      <h3>QR ALLPAYMENT</h3>
+      <!-- Updated onerror to be more informative if QR code fails to load -->
+      <img src="https://i.ibb.co/93fJ43yS/IMG-20250501-WA0008-1.jpg" alt="QR All Payment" onerror="this.onerror=null;this.src='https://placehold.co/300x300/FF0000/FFFFFF?text=QR+Code+Tidak+Tersedia'; this.title='QR Code tidak dapat dimuat. Pastikan koneksi internet Anda stabil atau hubungi admin.'; " />
+    </div>
+    <div class="warning-messages">
+      <p>• WAJIB MEMBAWA BUKTI TF BERUPA FOTO⚠️⚠️</p>
+      <p>• TIDAK MEMBAWA/TIDAK MEMAKAI BUKTI TF, TRX TIDAK AKAN DILANJUTKAN⚠️</p>
+    </div>
+  </div>
+
+  <!-- Custom Alert/Message Box HTML -->
+  <div id="customAlert" class="custom-alert">
+    <p id="alertMessage"></p>
+    <button onclick="document.getElementById('customAlert').style.display='none'">OK</button>
+  </div>
+
+  <script>
+    // Fungsi untuk menampilkan pesan peringatan kustom
+    function showCustomAlert(message) {
+      document.getElementById('alertMessage').innerText = message;
+      document.getElementById('customAlert').style.display = 'block';
+    }
+
+    // Fungsi untuk menyalin teks ke clipboard
+    function copyToClipboard(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showCustomAlert('Nomor berhasil disalin!');
+      } catch (err) {
+        showCustomAlert('Gagal menyalin nomor.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // Event listener untuk submit form
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Mencegah form dari submit default
+
+      // Mendapatkan nilai dari input
+      const layanan = document.getElementById('layanan').value;
+      const link = document.getElementById('link').value;
+      const jumlah = document.getElementById('jumlah').value;
+
+      // Validasi input
+      if (!layanan || layanan === "" || !link || !jumlah) {
+        showCustomAlert('Mohon lengkapi semua kolom formulir.');
+        return;
+      }
+
+      // Membangun pesan WhatsApp
+      const whatsappNumber = '6283894413409'; // Nomor WhatsApp tujuan
+      const message = `Halo, saya ingin order:\n\nLayanan: ${layanan}\nLink/URL Target: ${link}\nJumlah: ${jumlah}\n\nTerima kasih.`;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+      // Mengarahkan ke WhatsApp
+      window.open(whatsappURL, '_blank');
+
+      // Tampilkan pesan sukses setelah pengiriman form
+      showCustomAlert('Order Anda telah dikirim! Anda akan diarahkan ke WhatsApp.');
+
+      // Opsional: Reset form setelah submit
+      this.reset();
+      // Sembunyikan detail pembayaran yang dipilih setelah form reset
+      document.getElementById('selectedPaymentDetails').style.display = 'none';
+      document.getElementById('paymentMethod').value = ""; // Reset dropdown pembayaran
+    });
+
+    // Event listener untuk perubahan pilihan metode pembayaran
+    document.getElementById('paymentMethod').addEventListener('change', function() {
+      const selectedValue = this.value;
+      const selectedPaymentDetailsDiv = document.getElementById('selectedPaymentDetails');
+      const displayedAccountDetails = document.getElementById('displayedAccountDetails');
+      const displayedAccountName = document.getElementById('displayedAccountName');
+      const copyPaymentBtn = document.getElementById('copyPaymentBtn');
+
+      if (selectedValue) {
+        // Pisahkan nilai menjadi [jenis, nomor, nama]
+        const [type, accountNumber, accountName] = selectedValue.split(':');
+        
+        displayedAccountDetails.innerText = `• ${type}: ${accountNumber.replace(/(\d{4})(?=\d)/g, '$1-')}`; // Format nomor telepon
+        displayedAccountName.innerText = `A/N: ${accountName}`;
+        copyPaymentBtn.dataset.account = accountNumber; // Simpan nomor rekening untuk fungsi salin
+        selectedPaymentDetailsDiv.style.display = 'flex'; // Tampilkan detail
+      } else {
+        selectedPaymentDetailsDiv.style.display = 'none'; // Sembunyikan jika tidak ada yang dipilih
+      }
+    });
+
+    // Event listener untuk tombol salin nomor rekening yang dipilih
+    document.getElementById('copyPaymentBtn').addEventListener('click', function() {
+      const accountNumber = this.dataset.account;
+      if (accountNumber) {
+        copyToClipboard(accountNumber);
+      } else {
+        showCustomAlert('Tidak ada nomor rekening yang bisa disalin.');
+      }
+    });
+  </script>
+</body>
+</html>
